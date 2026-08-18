@@ -25,6 +25,7 @@ public class ActivityAIService {
     // A description of "a string will arrive later"
     public Mono<Recommendation> generateRecommendation(Activity activity) {
         String prompt = createPromptForActivity(activity);
+        log.info("PROMPT SENT TO AI: {}", prompt);
 
         return geminiService.getAnswer(prompt)
         //The lambdas inside .doOnNext() and .map() are not run at pipeline-construction time;
@@ -81,7 +82,7 @@ public class ActivityAIService {
             return Recommendation.builder()
                     .activityId(activity.getId())
                     .userId(activity.getUserId())
-                    .activityType(activity.getType())
+                    .activityType(activity.getActivityType())
                     .recommendation(fullAnalysis.toString().trim())
                     .improvements(improvements)
                     .suggestions(suggestions)
@@ -99,7 +100,7 @@ public class ActivityAIService {
         return Recommendation.builder()
                 .activityId(activity.getId())
                 .userId(activity.getUserId())
-                .activityType(activity.getType())
+                .activityType(activity.getActivityType())
                 .recommendation("Unable to generate detailed analysis")
                 .improvements(Collections.singletonList("Continue with your current routine"))
                 .suggestions(Collections.singletonList("Consider consulting with a fitness professional"))
@@ -197,7 +198,7 @@ public class ActivityAIService {
         Provide a detailed analysis focusing on performance, improvements, next workout suggestions, and safety guidelines.
         Ensure the response follows the EXACT JSON format shown above.
         """,
-                activity.getType(),
+                activity.getActivityType(),
                 activity.getDuration(),
                 activity.getCaloriesBurned(),
                 activity.getAdditionalMetrics()
