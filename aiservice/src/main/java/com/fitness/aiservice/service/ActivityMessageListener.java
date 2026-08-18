@@ -21,7 +21,6 @@ public class ActivityMessageListener {
     @RabbitListener(queues = "activity.queue")
     public void processActivity(Activity activity){
         log.info("Received activity for processing: {}", activity.getId());
-        log.info("Generated Recommendation: {}",
             aiService.generateRecommendation(activity)
                 .flatMap(recommendation ->
                     Mono.fromCallable(() -> recommendationRepository.save(recommendation)) // Wraps the blocking save() call inside a lambda so it isn't executed immediately. This gives you a Mono<Recommendation> that .flatMap() is happy with, satisfying the type contract.
@@ -31,7 +30,6 @@ public class ActivityMessageListener {
                     .subscribe(
                         saved -> log.info("Saved recommendation: {}", saved.getId()),
                              error -> log.error("Failed to process activity: {}", activity.getId(), error)
-                    )
-        );
+                    );
     }
 }
