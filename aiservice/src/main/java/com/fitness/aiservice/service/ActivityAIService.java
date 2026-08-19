@@ -113,7 +113,6 @@ public class ActivityAIService {
                 .build();
     }
 
-
     private List<String> extractSafetyGuidelines(JsonNode safetyNode) {
         List<String> safety = new ArrayList<>();
         if(safetyNode.isArray()){
