@@ -10,8 +10,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@mui/material": "^9.3.1",
+    "@reduxjs/toolkit": "^2.12.0",
     "react": "^19.2.8",
-    "react-dom": "^19.2.8"
+    "react-dom": "^19.2.8",
+    "react-oauth2-code-pkce": "^1.24.0",
+    "react-redux": "^9.3.0",
+    "react-router": "^8.3.0"
   },
   "devDependencies": {
     "@types/react": "^19.2.18",
