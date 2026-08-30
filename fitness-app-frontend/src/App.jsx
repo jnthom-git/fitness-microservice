@@ -1,4 +1,4 @@
-import { Box, Button } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { useContext, useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setCredentials } from "./store/authSlice";
@@ -36,15 +36,35 @@ function App() {
   return (
     <Router>
       {!token ? (
-      <Button variant = "contained" color="#dc004e"
-              onClick={() => logIn()}>login</Button>
+      <Box
+      sx={{
+        height: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        textAlign: 'center',
+      }}>
+        <Typography variant="h4" gutterBottom>
+          Welcome to the Fitness Tracker App Bitch 
+        </Typography>
+        <Typography variant="body1" gutterBottom>
+          Please log in to access your activities and AI recommendations dumbass.
+        </Typography>
+        <Button variant = "contained" color="primary" size="large" onClick={() => logIn()}>
+          LOGIN
+        </Button>
+      </Box>
       ) : (
         <Box component="section" sx={{ p: 2, border: '1px dashed grey' }}>
-        <Routes>
-          <Route path="/activities" element={<ActivitiesPage />} />
-          <Route path="/activities/:id" element={<ActivityDetail />} />
-          
-          <Route path="/" element={token ? <Navigate to="/activities" replace/> : <div>Nothing to see here! Try logging in</div>} />
+          <Button variant = "contained" color="secondary" onClick={() => logOut()}>
+            LOGOUT
+          </Button>
+          <Routes>
+            <Route path="/activities" element={<ActivitiesPage />} />
+            <Route path="/activities/:id" element={<ActivityDetail />} />
+            
+            <Route path="/" element={token ? <Navigate to="/activities" replace/> : <div>Nothing to see here! Try logging in</div>} />
         </Routes>
     </Box>
       )}
